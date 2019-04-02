@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <title>This is the title of the webpage!</title>
+    <script type="text/javascript" src="scrollhandler.js"></script>
+    <link rel="stylesheet" type="text/css" href="fullpage.css" />
+  </head>
+  <body>
+    <div id="fullpage" class="container">
+      <div class="section section-1">
+        section-1
+      </div>
+      <div class="section section-2">
+        section-2
+      </div>
+      <div class="section section-3">
+        section-3
+      </div>
+      <div class="section section-4">
+        section-4
+      </div>
+    </div>
+    <script>
+      console.log(ScrollHandler)
+      const scrollHandler = new ScrollHandler(
+        function() {
+          console.log('next')
+        },
+        function() {
+          console.log('prev')
+        },
+        700
+      )
+      
+      // new fullpage('#fullpage', {
+      //   //options here
+      //   autoScrolling:true,
+      //   scrollHorizontally: true
+      // });
+    </script>
+  </body>
+</html>
