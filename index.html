@@ -3,10 +3,11 @@
   <head>
     <title>This is the title of the webpage!</title>
     <script type="text/javascript" src="scrollhandler.js"></script>
-    <link rel="stylesheet" type="text/css" href="fullpage.css" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="normalaze.css" />
   </head>
   <body>
-    <div id="fullpage" class="container">
+    <div id="fullpage" class="base-container container">
       <div class="section section-1">
         section-1
       </div>
@@ -20,23 +21,8 @@
         section-4
       </div>
     </div>
+    <script src="scripts.js"></script>
     <script>
-      console.log(ScrollHandler)
-      const scrollHandler = new ScrollHandler(
-        function() {
-          console.log('next')
-        },
-        function() {
-          console.log('prev')
-        },
-        700
-      )
-      
-      // new fullpage('#fullpage', {
-      //   //options here
-      //   autoScrolling:true,
-      //   scrollHorizontally: true
-      // });
     </script>
   </body>
 </html>

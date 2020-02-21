@@ -1,0 +1,35 @@
+body {
+  overflow: hidden;
+  height: 100%;
+}
+
+.base-container {
+  position: relative;
+  height: 100%;
+  transition: all 1000ms ease 0s;
+}
+
+.section {
+  height: 100vh;
+  width: 100%;
+
+  font-size: 40px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.section-1 {
+  background: #ff5f45;
+}
+
+.section-2 {
+  background: #0798ec;
+}
+
+.section-3 {
+  background: #fc6c7c;
+}
+
+.section-4 {
+  background: #fec401;
+}
