@@ -1,29 +1,23 @@
 class ScrollHandler {
-  touchStartY = 0;
-  touchStartX = 0;
-  touchEndY = 0;
-  touchEndX = 0;
-  
-  container = document.body;
-
-  isScrollAllowed = {
-    m: { 'up':true, 'down':true, 'left':true, 'right':true }
-  };
-
-  prevTime = null;
-  curTime = null;
-  timeDiff = null;
-  scrollings = [];
-
-  canScroll = true;
-  afterSectionLoadsId = null;
-
   constructor(moveNextAction, movePrevAction, time) {
+    this.isScrollAllowed = {
+      m: { 'up':true, 'down':true, 'left':true, 'right':true }
+    };
+  
+    this.prevTime = null;
+    this.curTime = null;
+    this.timeDiff = null;
+    this.scrollings = [];
+  
+    this.canScroll = true;
+    this.afterSectionLoadsId = null;
+
     this['next'] = moveNextAction;
     this['prev'] = movePrevAction;
     this.time = time
 
     this.addMouseWheelHandler();
+    this.addToushHandler()
   }
 
   addMouseWheelHandler() {
@@ -43,17 +37,69 @@ class ScrollHandler {
               'DOMMouseScroll'; // let's assume that remaining browsers are older Firefox
 
 
-    if (support == 'DOMMouseScroll'){
-        document[ _addEventListener ](prefix + 'MozMousePixelScroll', this.MouseWheelHandler);
+    if (support == 'DOMMouseScroll') {
+        document[ _addEventListener ](prefix + 'MozMousePixelScroll', this.MouseWheelHandler.bind(this));
     }
 
     //handle MozMousePixelScroll in older Firefox
     else { 
-        document[ _addEventListener ](prefix + support, this.MouseWheelHandler);
+        document[ _addEventListener ](prefix + support, this.MouseWheelHandler.bind(this));
     }
   }
 
-  getAverage (elements, number){
+  addToushHandler() {
+    document.addEventListener('touchstart', handleTouchStart, false);        
+    document.addEventListener('touchmove', handleTouchMove, false);
+
+    var xDown = null;                                                        
+    var yDown = null;
+
+    function getTouches(evt) {
+      return evt.touches ||             // browser API
+            evt.originalEvent.touches; // jQuery
+    }                                                     
+
+    function handleTouchStart(evt) {
+        const firstTouch = getTouches(evt)[0];                                      
+        xDown = firstTouch.clientX;                                      
+        yDown = firstTouch.clientY;                                      
+    };                                                
+
+    function handleTouchMove(evt) {
+        if ( ! xDown || ! yDown ) {
+            return;
+        }
+
+        var xUp = evt.touches[0].clientX;                                    
+        var yUp = evt.touches[0].clientY;
+
+        var xDiff = xDown - xUp;
+        var yDiff = yDown - yUp;
+
+        if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+            if ( xDiff > 0 ) {
+                /* left swipe */ 
+            } else {
+                /* right swipe */
+            }                       
+        } else {
+            if ( yDiff > 0 ) {
+              console.log('handleTouchMove next')
+              this.move('next')
+            } else { 
+              console.log('handleTouchMove prev')
+              this.move('prev')
+            }                                                                 
+        }
+        /* reset values */
+        xDown = null;
+        yDown = null;                                             
+    };
+  }
+
+  
+
+  getAverage (elements, number) {
     var sum = 0;
     //taking `number` elements from the end to make the average, if there are not enought, 1
     var lastElements = elements.slice(Math.max(elements.length - number, 1));
@@ -65,9 +111,9 @@ class ScrollHandler {
     return Math.ceil(sum/number);
   }
 
-  MouseWheelHandler = (e) => {
+  MouseWheelHandler(e) {
     this.curTime = new Date().getTime();
-    
+  
     if (!this.isScrollAllowed.m.down && !this.isScrollAllowed.m.up) {
       preventDefault(e);
       return false;
@@ -107,11 +153,9 @@ class ScrollHandler {
       if (isAccelerating && isScrollingVertically ){
         //scrolling down?
         if (delta < 0) {
-          // console.log('next');
           this.move('next')
         //scrolling up?
         } else {
-          // console.log('prev');
           this.move('prev')
         }
       }
@@ -120,7 +164,7 @@ class ScrollHandler {
     return false;
   }
 
-  removeMouseWheelHandler = () => {
+  removeMouseWheelHandler() {
     if (document.addEventListener) {
         document.removeEventListener('mousewheel', this.MouseWheelHandler, false); //IE9, Chrome, Safari, Oper
         document.removeEventListener('wheel', this.MouseWheelHandler, false); //Firefox
