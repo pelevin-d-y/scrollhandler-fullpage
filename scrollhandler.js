@@ -17,7 +17,7 @@ class ScrollHandler {
     this.time = time
 
     this.addMouseWheelHandler();
-    this.addToushHandler()
+    this.addTouchHandler()
   }
 
   addMouseWheelHandler() {
@@ -47,7 +47,7 @@ class ScrollHandler {
     }
   }
 
-  addToushHandler() {
+  addTouchHandler() {
     document.addEventListener('touchstart', handleTouchStart, false);        
     document.addEventListener('touchmove', handleTouchMove, false);
 
@@ -84,10 +84,8 @@ class ScrollHandler {
             }                       
         } else {
             if ( yDiff > 0 ) {
-              console.log('handleTouchMove next')
               this.move('next')
             } else { 
-              console.log('handleTouchMove prev')
               this.move('prev')
             }                                                                 
         }
@@ -96,8 +94,6 @@ class ScrollHandler {
         yDown = null;                                             
     };
   }
-
-  
 
   getAverage (elements, number) {
     var sum = 0;
@@ -166,11 +162,11 @@ class ScrollHandler {
 
   removeMouseWheelHandler() {
     if (document.addEventListener) {
-        document.removeEventListener('mousewheel', this.MouseWheelHandler, false); //IE9, Chrome, Safari, Oper
-        document.removeEventListener('wheel', this.MouseWheelHandler, false); //Firefox
-        document.removeEventListener('MozMousePixelScroll', this.MouseWheelHandler, false); //old Firefox
+        document.removeEventListener('mousewheel', this.MouseWheelHandler, false);
+        document.removeEventListener('wheel', this.MouseWheelHandler, false);
+        document.removeEventListener('MozMousePixelScroll', this.MouseWheelHandler, false);
     } else {
-        document.detachEvent('onmousewheel', this.MouseWheelHandler); //IE 6/7/8
+        document.detachEvent('onmousewheel', this.MouseWheelHandler);
     }
   }
 
