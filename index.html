@@ -2,12 +2,13 @@
 <html>
   <head>
     <title>This is the title of the webpage!</title>
-    <script type="text/javascript" src="scrollhandler.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <script type="module" src="/scrollhandler.js"></script>
     <link rel="stylesheet" type="text/css" href="normalaze.css" />
+    <link rel="stylesheet" type="text/css" href="fullpage.css" />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
   </head>
   <body>
-    <div id="fullpage" class="base-container container">
+    <div class="base-container container">
       <div class="section section-1">
         section-1
       </div>
@@ -21,8 +22,14 @@
         section-4
       </div>
     </div>
-    <script src="scripts.js"></script>
-    <script>
-    </script>
+    <nav class="fp-nav">
+      <div class="fp-nav__start-number fp-nav__number">
+      </div>
+      <ul class="fp-nav__list styles.navList">
+      </ul>
+      <div class="fp-nav__end-number fp-nav__number"></div>
+    </nav>
+    <script type="module" src="./baseClass/index.js"></script>
+    <script type="module" src="./scripts.js"></script>
   </body>
 </html>

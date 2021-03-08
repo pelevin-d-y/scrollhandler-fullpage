@@ -2,11 +2,6 @@
   box-sizing: border-box;
 }
 
-body {
-  overflow: hidden;
-  height: 100%;
-}
-
 .base-container {
   position: relative;
   height: 100%;
