@@ -1,11 +1,18 @@
-import ScrollHandler from './scrollhandler.js'
-import BaseClass from './baseClass/index.js'
+import Events from './fullpage/events.js'
 
 window.addEventListener('load', () => {
-  console.log('BaseClass', BaseClass)
+  
+  // const baseContainerEl = document.querySelector('.base-container')
+  // const sectionEl = document.querySelector('.section')
+  // const scrollHandler = new ScrollHandler(
+  //   baseContainerEl,
+  //   sectionEl,
+  //   700
+  // )
+
   const baseContainerEl = document.querySelector('.base-container')
-  const sectionEl = document.querySelector('.section')
-  const scrollHandler = new ScrollHandler(
+  const sectionEl = document.querySelectorAll('.section')
+  const fullPage = new Events(
     baseContainerEl,
     sectionEl,
     700
