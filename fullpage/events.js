@@ -103,6 +103,7 @@ class Events extends Handlers {
   removeEventListeners() {
     this.removeMouseWheelHandler()
     this.removeTouchHandler()
+    this.removeNavigationHandlers()
     document.removeEventListener('resize', this.resizeHandler, false)
   }
 }
