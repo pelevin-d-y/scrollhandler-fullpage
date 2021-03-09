@@ -1,5 +1,6 @@
 class BaseClass {
-  constructor(baseContainer, sections, time) {
+  constructor(baseContainer, sections, time, options) {
+    this.options = options
     this.sections = Array.from(sections)
     this.baseContainer = baseContainer
     this.time = time
@@ -82,6 +83,7 @@ class BaseClass {
   }
 
   startTransition = () => {
+    this.options.onLeave(this.currentSection)
     var translate3d = 'translate3d(0px, -' + this.currentTransform + 'px, 0px)'
     this.css(this.baseContainer, this.getTransforms(translate3d))
   }

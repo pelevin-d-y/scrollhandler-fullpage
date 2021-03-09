@@ -1,6 +1,10 @@
 import Navigation from './navigation.js'
 
 class Handlers extends Navigation {
+  constructor(baseContainer, sections, time, options) {
+    super(baseContainer, sections, time, options)
+  }
+
   handleTouchStart(evt) {
     const firstTouch = this.getTouches(evt)[0]
     this.xDown = firstTouch.clientX

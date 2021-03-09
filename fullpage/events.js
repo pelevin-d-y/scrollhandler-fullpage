@@ -1,9 +1,10 @@
 import Handlers from './handlers.js';
 
 class Events extends Handlers {
-  constructor(baseContainer, sections, time) {
-    super(baseContainer, sections, time)
+  constructor(baseContainer, sections, time, options) {
+    super(baseContainer, sections, time, options)
     this.navigationListeners=[]
+    this.listeners = {}
 
     this.addTouchHandler()
     this.addMouseWheelHandler()
@@ -103,7 +104,6 @@ class Events extends Handlers {
   removeEventListeners() {
     this.removeMouseWheelHandler()
     this.removeTouchHandler()
-    this.removeNavigationHandlers()
     document.removeEventListener('resize', this.resizeHandler, false)
   }
 }

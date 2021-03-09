@@ -1,8 +1,8 @@
 import BaseClass from './base.js'
 
 class Navigation extends BaseClass {
-  constructor (baseContainer, sections, time) {
-    super(baseContainer, sections, time)
+  constructor (baseContainer, sections, time, options) {
+    super(baseContainer, sections, time, options)
     this.initNavigation()
   }
 
@@ -12,6 +12,7 @@ class Navigation extends BaseClass {
     if (navList.firstChild) {
       return
     }
+
     let i = 0
     const startNumberElement = document.querySelector('.fp-nav__start-number')
     startNumberElement.textContent = (this.currentSection + 1).toLocaleString('en-US', { minimumIntegerDigits: 2 })

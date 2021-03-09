@@ -1,7 +1,7 @@
 import Events from './Events.js'
 
 class FullPage extends Events {
-  constructor(baseContainer = 'fp-container', sections = 'fp-section', time) {
+  constructor(baseContainer = 'fp-container', sections = 'fp-section', time, options) {
     if (typeof baseContainer === 'string') {
       baseContainer = document.querySelector(`.${baseContainer}`)
     }
@@ -10,7 +10,7 @@ class FullPage extends Events {
       sections = document.querySelectorAll(`.${sections}`)
     }
 
-    super(baseContainer, sections, time)
+    super(baseContainer, sections, time, options)
   }
 }
 
