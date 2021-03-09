@@ -1,5 +1,4 @@
-import ScrollHandler from './scrollhandler.js'
-import BaseClass from './baseClass/index.js'
+import Events from './fullpage/events.js'
 
 window.addEventListener('load', () => {
   
@@ -13,11 +12,9 @@ window.addEventListener('load', () => {
 
   const baseContainerEl = document.querySelector('.base-container')
   const sectionEl = document.querySelectorAll('.section')
-  const baseClass = new BaseClass(
+  const fullPage = new Events(
     baseContainerEl,
     sectionEl,
     700
   )
-
-  console.log('baseClass.sections', baseClass.sections)
 })
