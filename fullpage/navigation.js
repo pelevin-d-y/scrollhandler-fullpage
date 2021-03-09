@@ -9,6 +9,9 @@ class Navigation extends BaseClass {
   initNavigation() {
     const nav = document.querySelector('.fp-nav')
     const navList = nav.querySelector('.fp-nav__list')
+    if (navList.firstChild) {
+      return
+    }
     let i = 0
     const startNumberElement = document.querySelector('.fp-nav__start-number')
     startNumberElement.textContent = (this.currentSection + 1).toLocaleString('en-US', { minimumIntegerDigits: 2 })
