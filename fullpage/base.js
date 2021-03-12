@@ -1,9 +1,9 @@
 class BaseClass {
-  constructor(baseContainer, sections, time) {
+  constructor(baseContainer, options) {
+    const { onLeave, sections } = options
+    this.onLeave = onLeave
     this.sections = Array.from(sections)
     this.baseContainer = baseContainer
-    this.time = time
-
     this.currentSection = 0
     this.currentTransform = 0
 
@@ -82,6 +82,7 @@ class BaseClass {
   }
 
   startTransition = () => {
+    this.onLeave(this.currentSection)
     var translate3d = 'translate3d(0px, -' + this.currentTransform + 'px, 0px)'
     this.css(this.baseContainer, this.getTransforms(translate3d))
   }
@@ -113,9 +114,19 @@ class BaseClass {
     document.querySelector('html').classList.add('fp-init')
   }
 
+  enablePageScroll() {
+    document.querySelector('body').classList.remove('fp-init')
+    document.querySelector('html').classList.remove('fp-init')
+  }
+
   reRender() {
     this.setTransform()
     this.startTransition()
+  }
+
+  destroy() {
+    this.removeEventListeners()
+    this.enablePageScroll()
   }
 }
 
