@@ -1,8 +1,17 @@
 import Navigation from './navigation.js'
 
 class Handlers extends Navigation {
-  constructor(baseContainer, sections, time, options) {
-    super(baseContainer, sections, time, options)
+  constructor(baseContainer, options) {
+    super(baseContainer, options)
+    const { time } = options
+    this.time = time
+  }
+
+  getTouches(evt) {
+    return (
+      evt.touches || // browser API
+      evt.originalEvent.touches
+    ) // jQuery
   }
 
   handleTouchStart(evt) {

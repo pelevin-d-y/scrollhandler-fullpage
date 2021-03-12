@@ -1,15 +1,15 @@
 import BaseClass from './base.js'
 
 class Navigation extends BaseClass {
-  constructor (baseContainer, sections, time, options) {
-    super(baseContainer, sections, time, options)
+  constructor (baseContainer, options) {
+    super(baseContainer, options)
     this.initNavigation()
   }
 
   initNavigation() {
     const nav = document.querySelector('.fp-nav')
     const navList = nav.querySelector('.fp-nav__list')
-    if (navList.firstChild) {
+    if (navList.children.length > 0) {
       return
     }
 

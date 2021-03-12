@@ -1,11 +1,13 @@
-import Events from './fullpage/events.js'
+import FullPage from './fullpage/index.js'
 
 window.addEventListener('load', () => {
   const baseContainerEl = document.querySelector('.base-container')
-  const sectionEl = document.querySelectorAll('.section')
-  const fullPage = new Events(
+  const FullPageInst = new FullPage(
     baseContainerEl,
-    sectionEl,
-    700
+    {
+      onLeave: (nextSection) => {
+        console.log(nextSection, 'onLeave')
+      }
+    }
   )
 })

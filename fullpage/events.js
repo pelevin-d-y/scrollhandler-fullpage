@@ -1,9 +1,9 @@
-import Handlers from './handlers.js';
+import Handlers from './handlers.js'
 
 class Events extends Handlers {
-  constructor(baseContainer, sections, time, options) {
-    super(baseContainer, sections, time, options)
-    this.navigationListeners=[]
+  constructor(baseContainer, options) {
+    super(baseContainer, options)
+    this.navigationListeners = []
     this.listeners = {}
 
     this.addTouchHandler()
@@ -13,21 +13,19 @@ class Events extends Handlers {
   }
 
   addTouchHandler() {
-    document.addEventListener(
-      'touchstart',
-      this.handleTouchStart.bind(this),
-      false
-    )
-    document.addEventListener(
-      'touchmove',
-      this.handleTouchMove.bind(this),
-      false
-    )
+    const _touchStartListener = this.handleTouchStart.bind(this)
+    document.addEventListener('touchstart', _touchStartListener, false)
+    const _touchMoveListener = this.handleTouchMove.bind(this)
+    document.addEventListener('touchmove', _touchMoveListener, false)
+
+    this.listeners.touchStartHandler = _touchStartListener
+    this.listeners.touchMoveHandler = _touchMoveListener
   }
 
   addMouseWheelHandler() {
     var prefix = ''
     var _addEventListener
+    const _listener = this.MouseWheelHandler.bind(this)
 
     if (window.addEventListener) {
       _addEventListener = 'addEventListener'
@@ -45,23 +43,21 @@ class Events extends Handlers {
         : 'DOMMouseScroll' // old Firefox
 
     if (support == 'DOMMouseScroll') {
-      document[_addEventListener](
-        prefix + 'MozMousePixelScroll',
-        this.MouseWheelHandler.bind(this)
-      )
+      document[_addEventListener](prefix + 'MozMousePixelScroll', _listener)
     }
 
     //handle MozMousePixelScroll in older Firefox
     else {
-      document[_addEventListener](
-        prefix + support,
-        this.MouseWheelHandler.bind(this)
-      )
+      document[_addEventListener](prefix + support, _listener)
     }
+
+    this.listeners.mouseWheelHandler = _listener
   }
 
   addResizeHandler() {
-    window.addEventListener('resize', this.resizeHandler.bind(this))
+    const _listener = this.resizeHandler.bind(this)
+    window.addEventListener('resize', _listener)
+    this.listeners.resizeHandler = _listener
   }
 
   addNavigationHandlers() {
@@ -84,27 +80,37 @@ class Events extends Handlers {
 
   removeMouseWheelHandler() {
     if (document.addEventListener) {
-      document.removeEventListener('mousewheel', this.MouseWheelHandler, false)
-      document.removeEventListener('wheel', this.MouseWheelHandler, false)
+      document.removeEventListener(
+        'mousewheel',
+        this.listeners.mouseWheelHandler,
+        false
+      )
+
+      document.removeEventListener(
+        'wheel',
+        this.listeners.mouseWheelHandler,
+        false
+      )
+
       document.removeEventListener(
         'MozMousePixelScroll',
-        this.MouseWheelHandler,
+        this.listeners.mouseWheelHandler,
         false
       )
     } else {
-      document.detachEvent('onmousewheel', this.MouseWheelHandler)
+      document.detachEvent('onmousewheel', this.listeners.mouseWheelHandler)
     }
   }
 
   removeTouchHandler() {
-    document.removeEventListener('touchstart', this.handleTouchStart, false)
-    document.removeEventListener('touchmove', this.handleTouchMove, false)
+    document.removeEventListener('touchstart', this.listeners.touchStartHandler, false)
+    document.removeEventListener('touchmove', this.listeners.touchMoveHandler, false)
   }
 
   removeEventListeners() {
     this.removeMouseWheelHandler()
     this.removeTouchHandler()
-    document.removeEventListener('resize', this.resizeHandler, false)
+    document.removeEventListener('resize', this.listeners.resizeHandler, false)
   }
 }
 
